@@ -33,6 +33,7 @@ class ApiUserResourceController extends Controller_1.Controller {
             return;
         }
         const app_key = process.env.APP_KEY || 'basantashubhu';
+        const token_expiry = process.env.TOKEN_EXPIRY || '1hr';
         const res = {
             "value": request.body.email,
             "msg": "Invalid email address or password",
@@ -45,7 +46,7 @@ class ApiUserResourceController extends Controller_1.Controller {
             if (!user || !bcryptjs_1.default.compareSync(request.body.password, user.password)) {
                 return response.status(422).send([res]);
             }
-            jsonwebtoken_1.default.sign({ data: user }, app_key, { expiresIn: '1min' }, function (err, token) {
+            jsonwebtoken_1.default.sign({ data: user }, app_key, { expiresIn: token_expiry }, function (err, token) {
                 if (err) {
                     return response.status(500).send({ message: err.message });
                 }

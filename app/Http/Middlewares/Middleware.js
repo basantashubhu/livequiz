@@ -4,20 +4,22 @@ exports.Middleware = void 0;
 const AuthMiddleware_1 = require("./AuthMiddleware");
 const FakeMiddleware_1 = require("./FakeMiddleware");
 const TrimString_1 = require("./TrimString");
+const GuestMiddleware_1 = require("./GuestMiddleware");
 class Middleware {
     /**
      * @param {String} Middleware
      * @return {Function} Function
      */
     static resolve(middleware) {
-        let middlewareInstance = new FakeMiddleware_1.FakeMiddleware();
+        let middlewareInstance = FakeMiddleware_1.FakeMiddleware.getInstance();
         switch (middleware) {
             case 'Auth':
-                middlewareInstance = new AuthMiddleware_1.AuthMiddleware();
+                middlewareInstance = AuthMiddleware_1.AuthMiddleware.getInstance();
                 break;
             case 'TrimString':
-                middlewareInstance = new TrimString_1.TrimString();
+                middlewareInstance = TrimString_1.TrimString.getInstance();
                 break;
+            case 'Guest': middlewareInstance = GuestMiddleware_1.GuestMiddleware.getInstance();
         }
         return middlewareInstance.handle.bind(middlewareInstance);
     }

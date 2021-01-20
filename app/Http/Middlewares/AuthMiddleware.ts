@@ -1,8 +1,8 @@
 import {Response, Request, NextFunction} from "express"
-import { AbstractMiddleware } from "./AbstractMiddleware";
+import {Middleware} from './AbstractMiddleware';
 import jwt from "jsonwebtoken"
 
-export class AuthMiddleware implements AbstractMiddleware {
+export class AuthMiddleware extends Middleware {
     app_key : string = process.env.APP_KEY || 'basantashubhu'
     
     handle(request : Request, response : Response, next : NextFunction)  {

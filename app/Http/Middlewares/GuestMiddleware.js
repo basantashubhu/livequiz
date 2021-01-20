@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthMiddleware = void 0;
+exports.GuestMiddleware = void 0;
 const AbstractMiddleware_1 = require("./AbstractMiddleware");
+const LoginController_1 = require("../Controllers/Auth/LoginController");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-class AuthMiddleware extends AbstractMiddleware_1.Middleware {
+class GuestMiddleware extends AbstractMiddleware_1.Middleware {
     constructor() {
         super(...arguments);
         this.app_key = process.env.APP_KEY || 'basantashubhu';
@@ -15,34 +16,34 @@ class AuthMiddleware extends AbstractMiddleware_1.Middleware {
         if (request.cookies.token) {
             this.verify(request.cookies.token, request, response, next);
         }
-        else if (!request.headers.authorization) {
-            this.errorResponse(request, response);
-        }
-        else {
+        else if (request.headers.authorization) {
             const token = request.headers.authorization.split(' ')[1];
             this.verify(token, request, response, next);
         }
+        else {
+            next();
+        }
+    }
+    errorResponse(request, response) {
+        if (request.xhr) {
+            // response.send({message: 'Please login to contiune'})
+        }
+        else {
+            response.redirect(LoginController_1.LoginController.REDIRECT_URL);
+        }
+        response.status(400);
+        response.end();
     }
     verify(token, request, response, next) {
         jsonwebtoken_1.default.verify(token, this.app_key, (err, decoded) => {
             if (err) {
-                this.errorResponse(request, response, err.message);
+                // console.log({err:err.message})
+                next();
             }
             else {
-                request.decoded = decoded;
-                next();
+                this.errorResponse(request, response);
             }
         });
     }
-    errorResponse(request, response, message = null) {
-        if (request.xhr) {
-            response.send({ message: 'Please login to contiune' });
-        }
-        else {
-            response.redirect('/login');
-        }
-        response.status(401);
-        response.end();
-    }
 }
-exports.AuthMiddleware = AuthMiddleware;
+exports.GuestMiddleware = GuestMiddleware;

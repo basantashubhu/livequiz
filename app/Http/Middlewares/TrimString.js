@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrimString = void 0;
-class TrimString {
+const AbstractMiddleware_1 = require("./AbstractMiddleware");
+class TrimString extends AbstractMiddleware_1.Middleware {
     handle(request, resposne, next) {
         if (request.params) {
             this.trimStringProperties(request.params);

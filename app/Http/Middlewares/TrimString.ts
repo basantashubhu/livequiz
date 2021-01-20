@@ -1,7 +1,7 @@
-import {AbstractMiddleware} from './AbstractMiddleware'
+import {Middleware} from './AbstractMiddleware'
 import {Request, Response, NextFunction} from 'express'
 
-export class TrimString implements AbstractMiddleware{
+export class TrimString extends Middleware {
     handle(request : Request, resposne : Response, next : NextFunction) {
 
         if (request.params) {

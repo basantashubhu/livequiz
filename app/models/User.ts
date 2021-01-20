@@ -8,7 +8,8 @@ export const User = mongoose.model('User', new mongoose.Schema({
     token : {
         type : String,
         required : false
-    }
+    },
+    verifiedAt : Date
 }, {
     timestamps : true
 }))

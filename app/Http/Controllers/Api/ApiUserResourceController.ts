@@ -30,6 +30,8 @@ export class ApiUserResourceController extends Controller{
             return
         }
         const app_key = process.env.APP_KEY || 'basantashubhu'
+        const token_expiry = process.env.TOKEN_EXPIRY || '1hr'
+
         const res = {
             "value": request.body.email,
             "msg": "Invalid email address or password",
@@ -42,7 +44,7 @@ export class ApiUserResourceController extends Controller{
             if(!user || !bcrypt.compareSync(request.body.password, user.password)) {
                 return response.status(422).send([res])
             }
-            jsonwebtoken.sign({data : user}, app_key, {expiresIn : '1min'}, function(err : any, token : any) {
+            jsonwebtoken.sign({data : user}, app_key, {expiresIn : token_expiry}, function(err : any, token : any) {
                 if(err) {
                     return response.status(500).send({message : err.message})
                 }

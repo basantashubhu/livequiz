@@ -13,7 +13,8 @@ exports.User = mongoose_1.default.model('User', new mongoose_1.default.Schema({
     token: {
         type: String,
         required: false
-    }
+    },
+    verifiedAt: Date
 }, {
     timestamps: true
 }));

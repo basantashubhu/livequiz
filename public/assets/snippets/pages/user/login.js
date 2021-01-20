@@ -4,7 +4,7 @@ var SnippetLogin = function () {
     var login = $('#m_login');
     var timer;
 
-    var showErrorMsg = function (form, type, msg) {
+    var showErrorMsg = function (form, type, msg, time = 8000) {
         clearTimeout(timer);
         var alert = $('<div class="m-alert m-alert--outline alert alert-' + type + ' alert-dismissible" role="alert">\
 			<span></span>\
@@ -17,7 +17,7 @@ var SnippetLogin = function () {
 
         timer = setTimeout(() => {
             form.find('.alert').remove();
-        }, 8000)
+        }, time)
     }
 
     var embedError = function(form, name, message) {
@@ -127,7 +127,7 @@ var SnippetLogin = function () {
                 btn.removeClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
                 signInForm[0].reset()
                 SinupAgree.prop('checked', false);
-                showErrorMsg(signInForm, 'success', 'Thank you. To complete your registration please check your email.');
+                showErrorMsg(signInForm, 'success', 'Thank you. To complete your registration please check your <b><a href="/reset/email/list" target="_blank">email</a></b>.', 30000);
             }, function (err) {
                 signInForm.find('.has-error').removeClass('has-error');
                 signInForm.find('.alert').remove();

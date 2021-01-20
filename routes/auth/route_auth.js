@@ -23,4 +23,9 @@ router.post('/password/reset', [
     body('password').isLength({min:6}).withMessage('Password must have at least 6 characters')
 ], Kernel.map('ResetPassword@resetPassword'))
 
+/*
+* Verify email
+* */
+router.get('/email/confirm/:id', Kernel.map('RegistrationController@veryEmail'))
+
 module.exports = router
