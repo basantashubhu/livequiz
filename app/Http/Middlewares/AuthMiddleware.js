@@ -29,7 +29,7 @@ class AuthMiddleware extends AbstractMiddleware_1.Middleware {
                 this.errorResponse(request, response, err.message);
             }
             else {
-                request.decoded = decoded;
+                request.decoded = decoded.data;
                 next();
             }
         });

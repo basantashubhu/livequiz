@@ -27,7 +27,7 @@ class LoginController extends Controller_1.Controller {
             if (!user || !bcryptjs_1.default.compareSync(request.body.password, user.password)) {
                 return response.status(404).send({ message: 'Incorrect username or password. Please try again.' });
             }
-            jsonwebtoken_1.default.sign({ data: user }, this.app_key, { expiresIn: this.tokenExpiry }, function (err, token) {
+            jsonwebtoken_1.default.sign({ data: { id: user.id } }, this.app_key, { expiresIn: this.tokenExpiry }, function (err, token) {
                 if (err) {
                     return response.status(500).send({ message: err.message });
                 }

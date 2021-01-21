@@ -16,4 +16,6 @@ router.post('/v1/user/authenticate', [
     body('password').isLength({min:6}).withMessage('Password must contain at least 6 characters')
 ], Kernel.map('ApiUserResourceController@authenticate'))
 
+router.post('/v1/token', Kernel.map('ApiUserResourceController@validateToken'))
+
 module.exports = router
