@@ -8,7 +8,6 @@ export class ApiUserResourceController extends Controller{
 
     app_key = process.env.APP_KEY || 'basantashubhu'
 
-
     /**
      * @route /api/v1/user/register
      * api user registration
@@ -45,7 +44,7 @@ export class ApiUserResourceController extends Controller{
         if (!this.validate(request, response)) {
             return
         }
-        const token_expiry = process.env.TOKEN_EXPIRY || '1hr'
+        const expiresIn = process.env.TOKEN_EXPIRY || '1hr'
 
         User.findOne({email : request.body.email}, (err : any, user : any) => {
             if(err) {
@@ -54,7 +53,7 @@ export class ApiUserResourceController extends Controller{
             if(!user || !bcrypt.compareSync(request.body.password, user.password)) {
                 return response.status(422).send({errors : {email : "Invalid email address or password"}})
             }
-            jsonwebtoken.sign({data : {id: user.id}}, this.app_key, {expiresIn : token_expiry}, function(err : any, token : any) {
+            jsonwebtoken.sign({data : {id: user.id}}, this.app_key, {expiresIn}, function(err : any, token : any) {
                 if(err) {
                     return response.status(500).send({message : err.message})
                 }
