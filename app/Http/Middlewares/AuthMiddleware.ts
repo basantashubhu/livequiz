@@ -17,11 +17,11 @@ export class AuthMiddleware extends Middleware {
     }
 
     verify(token : string, request : Request, response : Response, next : Function) {
-        jwt.verify(token, this.app_key, (err, decoded) => {
+        jwt.verify(token, this.app_key, (err : any, decoded : any) => {
             if(err) {
                 this.errorResponse(request, response, err.message)
             } else {
-                request.decoded = decoded
+                request.decoded = decoded.data
                 next()
             }
         })

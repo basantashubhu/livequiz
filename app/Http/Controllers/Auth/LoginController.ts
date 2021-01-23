@@ -27,7 +27,7 @@ export class LoginController extends Controller {
             if(!user || !bcrypt.compareSync(request.body.password, user.password)) {
                 return response.status(404).send({message: 'Incorrect username or password. Please try again.'})
             }
-            jsonwebtoken.sign({data : user}, this.app_key, {expiresIn : this.tokenExpiry}, function(err : any, token : any) {
+            jsonwebtoken.sign({data : {id : user.id}}, this.app_key, {expiresIn : this.tokenExpiry}, function(err : any, token : any) {
                 if(err) {
                     return response.status(500).send({message : err.message})
                 }

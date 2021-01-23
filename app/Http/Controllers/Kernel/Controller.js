@@ -7,7 +7,13 @@ class Controller extends BaseController_1.BaseController {
     validate(request, response) {
         const v = express_validator_1.validationResult(request);
         if (!v.isEmpty()) {
-            response.status(422).send(v.array()).end();
+            const errors = {};
+            const validationsErrors = v.array();
+            for (let index = 0; index < validationsErrors.length; index++) {
+                const error = validationsErrors[index];
+                errors[error.param] = error.msg;
+            }
+            response.status(422).send({ errors, message: "Validation failed" }).end();
             return false;
         }
         return true;

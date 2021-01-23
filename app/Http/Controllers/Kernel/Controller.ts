@@ -7,7 +7,13 @@ export class Controller extends BaseController{
     validate(request : Request, response : Response) : boolean{
         const v = validationResult(request)
         if(!v.isEmpty()) {
-            response.status(422).send(v.array()).end()
+            const errors : {[name : string] : string} = {}
+            const validationsErrors = v.array()
+            for (let index = 0; index < validationsErrors.length; index++) {
+                const error = validationsErrors[index];
+                errors[error.param] = error.msg
+            }
+            response.status(422).send({errors, message : "Validation failed"}).end()
             return false
         }
 

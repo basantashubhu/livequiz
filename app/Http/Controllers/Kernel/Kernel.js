@@ -10,7 +10,10 @@ const BaseKernel_1 = require("./BaseKernel");
 const ResetPassword_1 = require("../Auth/ResetPassword");
 class Kernel extends BaseKernel_1.BaseKernel {
     static createInstance() {
-        return new this();
+        if (this.instance == null) {
+            this.instance = new this();
+        }
+        return this.instance;
     }
     /**
      * @param {String} desiredClassName
@@ -29,3 +32,4 @@ class Kernel extends BaseKernel_1.BaseKernel {
     }
 }
 exports.Kernel = Kernel;
+Kernel.instance = null;

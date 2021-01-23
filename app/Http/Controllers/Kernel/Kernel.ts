@@ -8,9 +8,15 @@ import { Controller } from "./Controller";
 import {ResetPassword} from '../Auth/ResetPassword'
 
 export class Kernel extends BaseKernel{
+    private static instance : any = null
+
     static createInstance() : any {
-        return new this()
+        if (this.instance == null) {
+            this.instance = new this()
+        }
+        return this.instance
     }
+    
     /**
      * @param {String} desiredClassName 
      * @returns {Object} desiredClassObject
