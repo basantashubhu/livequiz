@@ -133,7 +133,7 @@ export class ApiUserResourceController extends Controller {
             if (!user) 
                 return response.status(404).json({message : 'User does not exists'})
             if (Number(user.code) !== Number(request.query.code))
-                return response.status(422).json({errors : {code : "Confirmation code did not match"}})
+                return response.status(422).json({errors : {code : "Confirmation code did not match", user, c : request.query.code}})
             
             if (!user.verifiedAt) {
                 user.verifiedAt = new Date()
