@@ -9,14 +9,6 @@ import {ResetPassword} from '../Auth/ResetPassword'
 import { ApiResetPasswordController } from "../Api/ApiResetPasswordController";
 
 export class Kernel extends BaseKernel{
-    private static instance : any = null
-
-    static createInstance() : any {
-        if (this.instance == null) {
-            this.instance = new this()
-        }
-        return this.instance
-    }
     
     /**
      * @param {String} desiredClassName 

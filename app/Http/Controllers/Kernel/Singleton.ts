@@ -1,5 +1,5 @@
 export class Singleton {
-    static instance : any = null
+    private static instance : any = null
 
     static getInstance() : any {
         if (this.instance == null) {

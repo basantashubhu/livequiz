@@ -16,7 +16,7 @@ export class RouteServiceProvider extends ServiceProvider {
         this.app.use('/', require(process.cwd() + '/routes/web'))
 
         // authentication routes
-        this.app.use('/', require(process.cwd() + '/routes/auth/route_auth'))
+        // this.app.use('/', require(process.cwd() + '/routes/auth/route_auth'))
     }
 
     apiRoutes() {

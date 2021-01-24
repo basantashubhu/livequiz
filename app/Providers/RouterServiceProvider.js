@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider_1.ServiceProvider {
     mapRoutes() {
         this.app.use('/', require(process.cwd() + '/routes/web'));
         // authentication routes
-        this.app.use('/', require(process.cwd() + '/routes/auth/route_auth'));
+        // this.app.use('/', require(process.cwd() + '/routes/auth/route_auth'))
     }
     apiRoutes() {
         this.app.use('/api', require(process.cwd() + '/routes/api/api_route_auth'));
