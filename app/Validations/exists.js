@@ -28,5 +28,6 @@ function unique(key, model, column) {
 }
 
 module.exports = {
-    exists
+    exists,
+    unique
 }
