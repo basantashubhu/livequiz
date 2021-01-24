@@ -8,6 +8,7 @@ const RegistrationController_1 = require("../Auth/RegistrationController");
 const HomeController_1 = require("../HomeController");
 const BaseKernel_1 = require("./BaseKernel");
 const ResetPassword_1 = require("../Auth/ResetPassword");
+const ApiResetPasswordController_1 = require("../Api/ApiResetPasswordController");
 class Kernel extends BaseKernel_1.BaseKernel {
     static createInstance() {
         if (this.instance == null) {
@@ -27,6 +28,7 @@ class Kernel extends BaseKernel_1.BaseKernel {
             case 'ApiUserResourceController': return ApiUserResourceController_1.ApiUserResourceController.getInstance();
             case 'ApiUserController': return ApiUserController_1.ApiUserController.getInstance();
             case 'ResetPassword': return ResetPassword_1.ResetPassword.getInstance();
+            case 'ApiResetPasswordController': return ApiResetPasswordController_1.ApiResetPasswordController.getInstance();
             default: throw new Error(`Controller [${desiredClassName}] does not exists`);
         }
     }
