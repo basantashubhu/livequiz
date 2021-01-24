@@ -132,7 +132,7 @@ export class ApiUserResourceController extends Controller {
                 return response.status(500).json({message : err.message})
             if (!user) 
                 return response.status(404).json({message : 'User does not exists'})
-            if (user.code !== request.query.code)
+            if (Number(user.code) !== Number(request.query.code))
                 return response.status(422).json({errors : {code : "Confirmation code did not match"}})
             
             if (!user.verifiedAt) {
