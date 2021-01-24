@@ -6,14 +6,15 @@ import {GuestMiddleware} from './GuestMiddleware'
 
 export abstract class Middleware {
     /**
-     * @param {*} request 
-     * @param {*} response 
+     * @param {*} request
+     * @param {*} response
+     * @param next
      */
     abstract handle(request : Request, response : Response, next : NextFunction) : void
 
     /**
-     * @param {String} Middleware
      * @return {Function} Function
+     * @param middleware
      */
     static resolve(middleware : string) : Function {
         let middlewareInstance : Middleware = FakeMiddleware.getInstance()

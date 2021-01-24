@@ -27,6 +27,10 @@ const UserSchema = new mongoose_1.default.Schema({
         type: String,
         required: false
     },
+    code: {
+        type: Number,
+        required: false
+    },
     verifiedAt: {
         type: Date,
         required: false
@@ -34,7 +38,4 @@ const UserSchema = new mongoose_1.default.Schema({
 }, {
     timestamps: true,
 });
-UserSchema.methods.findByEmail = function () {
-    return this.model('User').findOne({ email: this.email });
-};
 exports.User = mongoose_1.default.model('User', UserSchema);

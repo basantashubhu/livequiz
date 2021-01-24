@@ -6,6 +6,7 @@ import { HomeController } from "../HomeController";
 import {BaseKernel} from "./BaseKernel";
 import { Controller } from "./Controller";
 import {ResetPassword} from '../Auth/ResetPassword'
+import { ApiResetPasswordController } from "../Api/ApiResetPasswordController";
 
 export class Kernel extends BaseKernel{
     private static instance : any = null
@@ -29,6 +30,7 @@ export class Kernel extends BaseKernel{
             case 'ApiUserResourceController' : return ApiUserResourceController.getInstance()
             case 'ApiUserController' : return ApiUserController.getInstance()
             case 'ResetPassword' : return ResetPassword.getInstance()
+            case 'ApiResetPasswordController' : return ApiResetPasswordController.getInstance()
             default : throw new Error(`Controller [${desiredClassName}] does not exists`);
         }
     }

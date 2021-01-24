@@ -7,8 +7,8 @@ const TrimString_1 = require("./TrimString");
 const GuestMiddleware_1 = require("./GuestMiddleware");
 class Middleware {
     /**
-     * @param {String} Middleware
      * @return {Function} Function
+     * @param middleware
      */
     static resolve(middleware) {
         let middlewareInstance = FakeMiddleware_1.FakeMiddleware.getInstance();

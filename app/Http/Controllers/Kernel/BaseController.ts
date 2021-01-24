@@ -1,16 +1,11 @@
-export class BaseController {
-    private static instance : any
+import {Singleton} from './Singleton'
+
+export class BaseController extends Singleton{
     rules : string[]
 
     constructor() {
+        super()
         this.rules = []
-    }
-
-    static getInstance() : any {
-        if(!this.instance) {
-            this.instance = new this()
-        }
-        return this.instance
     }
 
     middleware(...middlewares : string[]) {

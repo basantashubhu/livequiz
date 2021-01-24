@@ -11,6 +11,7 @@ export class Controller extends BaseController{
             const validationsErrors = v.array()
             for (let index = 0; index < validationsErrors.length; index++) {
                 const error = validationsErrors[index];
+                if(error.param in errors) continue
                 errors[error.param] = error.msg
             }
             response.status(422).send({errors, message : "Validation failed"}).end()

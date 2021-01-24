@@ -1,15 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseController = void 0;
-class BaseController {
+const Singleton_1 = require("./Singleton");
+class BaseController extends Singleton_1.Singleton {
     constructor() {
+        super();
         this.rules = [];
-    }
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new this();
-        }
-        return this.instance;
     }
     middleware(...middlewares) {
         middlewares.forEach(rule => this.rules.push(rule));

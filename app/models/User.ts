@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema(
             type : String,
             required : false
         },
+        code : {
+            type : Number,
+            required : false
+        },
         verifiedAt : {
             type : Date,
             required : false
@@ -32,9 +36,5 @@ const UserSchema = new mongoose.Schema(
         timestamps : true,
     }
 );
-
-UserSchema.methods.findByEmail = function(this : any) {
-    return this.model('User').findOne({email : this.email})
-}
 
 export const User = mongoose.model('User', UserSchema)

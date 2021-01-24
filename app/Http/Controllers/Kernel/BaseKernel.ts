@@ -1,17 +1,16 @@
 import {Middleware} from "../../Middlewares/Middleware";
 import { Controller } from "./Controller";
+import {Singleton} from './Singleton'
 
-export abstract class BaseKernel{
-    static createInstance() : any {
-        throw new Error("Static method has no implementation");
-    }
+export abstract class BaseKernel extends Singleton{
+
      /**
-     * map string with controllers method
-     * @param {String} controllerMethod 
-     * @returns {Function}
-     */
+      * map string with controllers method
+      * @returns {Function}
+      * @param _controllerMethod
+      */
     static map(_controllerMethod : string) {
-        const self = this.createInstance()
+        const self = this.getInstance()
         
         const controllerMethod : string[] = _controllerMethod.split('@')
         if(controllerMethod.length < 2) {

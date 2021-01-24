@@ -1,17 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Middleware = exports.AbstractMiddleware = void 0;
-class AbstractMiddleware {
+const Singleton_1 = require("../Controllers/Kernel/Singleton");
+class AbstractMiddleware extends Singleton_1.Singleton {
 }
 exports.AbstractMiddleware = AbstractMiddleware;
 class Middleware extends AbstractMiddleware {
-    static getInstance() {
-        if (this.instance == null) {
-            this.instance = new this();
-        }
-        return this.instance;
-    }
-    handle(request, response, next) {
-    }
 }
 exports.Middleware = Middleware;

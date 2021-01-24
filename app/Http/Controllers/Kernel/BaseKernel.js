@@ -2,17 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseKernel = void 0;
 const Middleware_1 = require("../../Middlewares/Middleware");
-class BaseKernel {
-    static createInstance() {
-        throw new Error("Static method has no implementation");
-    }
+const Singleton_1 = require("./Singleton");
+class BaseKernel extends Singleton_1.Singleton {
     /**
-    * map string with controllers method
-    * @param {String} controllerMethod
-    * @returns {Function}
-    */
+     * map string with controllers method
+     * @returns {Function}
+     * @param _controllerMethod
+     */
     static map(_controllerMethod) {
-        const self = this.createInstance();
+        const self = this.getInstance();
         const controllerMethod = _controllerMethod.split('@');
         if (controllerMethod.length < 2) {
             throw "Couldn't map a controller";
