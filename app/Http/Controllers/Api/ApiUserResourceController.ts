@@ -127,12 +127,13 @@ export class ApiUserResourceController extends Controller {
 
         User.findOne({
             email : request.query.email,
-            code : request.query.code
         }, function (err : any, user : any) {
             if (err)
                 return response.status(500).json({message : err.message})
             if (!user) 
                 return response.status(404).json({message : 'User does not exists'})
+            if (user.code !== request.query.code)
+                return response.status(422).json({errors : {code : "Confirmation code did not match"}})
             
             if (!user.verifiedAt) {
                 user.verifiedAt = new Date()
