@@ -48,7 +48,7 @@ export class ApiUserResourceController extends Controller {
                 `<p>Dear ${ user.first_name }, <br/></p>
                 <p><strong>Thanks for signing up to Live Quiz, We are happy to have you.</strong></p>
                 <p>Please take a second to make sure we have your correct email address. <br/></p>
-                <p><a href="${this.BASE_URL}/email/confirm/${user.id}?email=${user.email}"><strong>Confirm your email address</strong></a><br/></p>
+                <p><a href="${this.BASE_URL}/email/confirm?email=${user.email}&code=${code}"><strong>Confirm your email address</strong></a><br/></p>
                 <p>Or try this code,</p>
                 <p>Code : ${code} <br/></p>
                 <p>If you did not sign up for Live Quiz Account, you can safely ignore this email.</p>
@@ -130,13 +130,15 @@ export class ApiUserResourceController extends Controller {
      * @param response 
      */
     veryEmail(request : Request, response : Response) {
-        User.findById(request.params.id, function (err : any, user : any) {
+        if(!this.validate(request, response)) return;
+
+        User.findOne({
+            email : request.query.email,
+            code : request.query.code
+        }, function (err : any, user : any) {
             if (err)
                 return response.status(500).json({message : err.message})
             if (!user) 
-                return response.status(404).json({message : 'User does not exists'})
-
-            if(user.email !== request.query.email && user.code.toString() !== request.query.code) 
                 return response.status(404).json({message : 'User does not exists'})
             
             if (!user.verifiedAt) {

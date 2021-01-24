@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Kernel} = require('../../app/Http/Controllers/Kernel/Kernel')
-const {body} = require('express-validator')
+const {body, check} = require('express-validator')
 const {exists, unique} = require('../../app/Validations/exists')
 
 router.post('/v1/user/register', [
@@ -23,7 +23,13 @@ router.post('/v1/token', Kernel.map('ApiUserResourceController@validateToken'))
 /*
 * Verify email
 * */
-router.get('/v1/email/confirm/:id', Kernel.map('ApiUserResourceController@veryEmail'))
+router.get('/v1/email/confirm', [
+    check('email', 'Provide valid email address').exists().bail().normalizeEmail().isEmail(),
+    check('code', 'Code must have 4 numbers').exists().bail()
+    .isLength({min:4}).bail().isNumeric(),
+    exists('email', 'User', 'email'),
+    exists('code', 'User', 'code'),
+], Kernel.map('ApiUserResourceController@veryEmail'))
 
 /*
 * reset password route
